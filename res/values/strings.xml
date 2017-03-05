@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">冰柜</string>
+     <string name="accessibility_service_description"></string>
+     <string name="acc_service_name">冰柜辅助</string>
+
+</resources>
