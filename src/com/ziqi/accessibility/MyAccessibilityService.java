@@ -17,8 +17,16 @@ public class MyAccessibilityService extends AccessibilityService {
 	public static final int TYPE_INSTALL_APP = 2;
 	public static final int TYPE_UNINSTALL_APP = 3;
 
+	public static MyAccessibilityService mService;
+
 	public static void reset() {
 		INVOKE_TYPE = 0;
+	}
+
+	@Override
+	public void onCreate() {
+		super.onCreate();
+		mService = this;
 	}
 
 	@Override
@@ -137,6 +145,10 @@ public class MyAccessibilityService extends AccessibilityService {
 						if (node.getClassName().equals("android.widget.Button")) {
 							if (node.isEnabled()) {
 								node.performAction(AccessibilityNodeInfo.ACTION_CLICK);
+							} else {
+								if (mService != null) {
+									mService.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
+								}
 							}
 						}
 					}
@@ -149,6 +161,9 @@ public class MyAccessibilityService extends AccessibilityService {
 						if (node.getClassName().equals("android.widget.Button")) {
 							node.performAction(AccessibilityNodeInfo.ACTION_CLICK);
 							Log.d("action", "click ok");
+							if (mService != null) {
+								mService.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
+							}
 						}
 					}
 				}

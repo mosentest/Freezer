@@ -77,11 +77,13 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				MyAccessibilityService.INVOKE_TYPE = MyAccessibilityService.TYPE_KILL_APP;
-				Intent killIntent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-				Uri packageURI = Uri.parse("package:com.adflash.quicktouch.g"); 
-				killIntent.setData(packageURI);
-				startActivity(killIntent);
+				Intent intent = new Intent(MainActivity.this, BgService.class);
+				startService(intent);
+//				MyAccessibilityService.INVOKE_TYPE = MyAccessibilityService.TYPE_KILL_APP;
+//				Intent killIntent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+//				Uri packageURI = Uri.parse("package:com.adflash.quicktouch.g"); 
+//				killIntent.setData(packageURI);
+//				startActivity(killIntent);
 			}
 		});
 	}
