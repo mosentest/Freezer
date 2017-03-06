@@ -137,7 +137,7 @@ public class MyAccessibilityService extends AccessibilityService {
 
 		if (event.getSource() != null) {
 			if (event.getPackageName().equals("com.android.settings")) {
-				List<AccessibilityNodeInfo> stop_nodes = event.getSource().findAccessibilityNodeInfosByViewId("com.android.settings:id/left_button");
+				List<AccessibilityNodeInfo> stop_nodes = event.getSource().findAccessibilityNodeInfosByText(getResources().getString(R.string.force_Stop));
 				if (stop_nodes != null && !stop_nodes.isEmpty()) {
 					AccessibilityNodeInfo node;
 					for (int i = 0; i < stop_nodes.size(); i++) {
@@ -149,11 +149,12 @@ public class MyAccessibilityService extends AccessibilityService {
 								if (mService != null) {
 									mService.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
 								}
+								break;
 							}
 						}
 					}
 				}
-				List<AccessibilityNodeInfo> ok_nodes = event.getSource().findAccessibilityNodeInfosByViewId("android:id/button1");
+				List<AccessibilityNodeInfo> ok_nodes = event.getSource().findAccessibilityNodeInfosByText(getResources().getString(R.string.OK));
 				if (ok_nodes != null && !ok_nodes.isEmpty()) {
 					AccessibilityNodeInfo node;
 					for (int i = 0; i < ok_nodes.size(); i++) {
@@ -164,6 +165,7 @@ public class MyAccessibilityService extends AccessibilityService {
 							if (mService != null) {
 								mService.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK);
 							}
+							break;
 						}
 					}
 				}

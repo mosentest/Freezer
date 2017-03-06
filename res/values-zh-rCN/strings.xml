@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Freezer</string>
+    <string name="app_name">冰柜</string>
     <string name="accessibility_service_description"></string>
     <string name="acc_service_name">冰柜辅助</string>
-    <string name="force_Stop">FORCE STOP</string>
-    <string name="OK">OK</string>
+    <string name="force_Stop">强制停止</string>
+    <string name="OK">确定</string>
 
 </resources>
