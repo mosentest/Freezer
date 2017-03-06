@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.jaredrummler.android.processes.AndroidProcesses;
 import com.jaredrummler.android.processes.models.AndroidAppProcess;
+import com.ziqi.utils.ApplicationUtils;
 import com.ziqi.utils.ThreadUtils;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
@@ -36,6 +37,7 @@ public class BgService extends Service {
 		ThreadUtils.getInstance(getApplicationContext()).pushRunnable(new ThreadUtils.Task() {
 			List<AndroidAppProcess> androidAppProcess;
 			List<ActivityManager.RunningAppProcessInfo> runningAppProcessInfos;
+			List<String> installedApplications;
 
 			@SuppressLint("InlinedApi")
 			@Override
@@ -47,6 +49,14 @@ public class BgService extends Service {
 						if (TextUtils.isEmpty(packageName)) {
 							continue;
 						}
+						if (packageName.contains("systemui") || packageName.contains("launcher") || packageName.equals("com.sohu.inputmethod.sogou") || packageName.equals(context.getPackageName())) {
+							continue;
+						}
+						killPkgNames.add(packageName);
+					}
+				}
+				if (installedApplications != null) {
+					for (String packageName : installedApplications) {
 						if (packageName.contains("systemui") || packageName.contains("launcher") || packageName.equals("com.sohu.inputmethod.sogou") || packageName.equals(context.getPackageName())) {
 							continue;
 						}
@@ -71,8 +81,11 @@ public class BgService extends Service {
 
 			@Override
 			public void doInBackground(Context context) {
-				androidAppProcess = AndroidProcesses.getRunningAppProcesses();
-				runningAppProcessInfos = AndroidProcesses.getRunningAppProcessInfo(context);
+				// androidAppProcess =
+				// AndroidProcesses.getRunningAppProcesses();
+				// runningAppProcessInfos =
+				// AndroidProcesses.getRunningAppProcessInfo(context);
+				installedApplications = ApplicationUtils.getInstalledApplications(getApplicationContext());
 			}
 
 		});
