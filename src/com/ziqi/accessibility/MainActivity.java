@@ -79,6 +79,7 @@ public class MainActivity extends Activity {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(MainActivity.this, BgService.class);
 				startService(intent);
+				findViewById(R.id.killAppButton).setEnabled(false);
 //				MyAccessibilityService.INVOKE_TYPE = MyAccessibilityService.TYPE_KILL_APP;
 //				Intent killIntent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
 //				Uri packageURI = Uri.parse("package:com.adflash.quicktouch.g"); 

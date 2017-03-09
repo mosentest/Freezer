@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.IBinder;
+import android.os.Process;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
@@ -77,6 +78,8 @@ public class BgService extends Service {
 						}
 					}, 2000);
 				}
+				int pid = Process.myPid();
+				android.os.Process.killProcess(pid);
 			}
 
 			@Override
