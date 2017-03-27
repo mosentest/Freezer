@@ -4,7 +4,7 @@
     <string name="app_name">冰柜</string>
     <string name="accessibility_service_description"></string>
     <string name="acc_service_name">冰柜辅助</string>
-    <string name="force_Stop">强制停止</string>
+    <string name="force_Stop">停止</string>
     <string name="OK">确定</string>
 
 </resources>

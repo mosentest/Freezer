@@ -37,7 +37,7 @@ public class BgService extends Service {
 	public void preOnStartCommand(Intent intent, int flags, int startId) {
 		ThreadUtils.getInstance(getApplicationContext()).pushRunnable(new ThreadUtils.Task() {
 			List<AndroidAppProcess> androidAppProcess;
-			List<ActivityManager.RunningAppProcessInfo> runningAppProcessInfos;
+			//List<ActivityManager.RunningAppProcessInfo> runningAppProcessInfos;
 			List<String> installedApplications;
 
 			@SuppressLint("InlinedApi")
@@ -50,18 +50,32 @@ public class BgService extends Service {
 						if (TextUtils.isEmpty(packageName)) {
 							continue;
 						}
-						if (packageName.contains("systemui") || packageName.contains("launcher") || packageName.equals("com.sohu.inputmethod.sogou") || packageName.equals(context.getPackageName())) {
+						if (packageName.contains("systemui") 
+								|| packageName.contains("launcher") 
+								|| packageName.equals("com.sohu.inputmethod.sogou") 
+								|| packageName.equals("com.tencent.qqpinyin") 
+								|| packageName.equals("com.baidu.input") 
+								|| packageName.equals(context.getPackageName())) {
 							continue;
 						}
-						killPkgNames.add(packageName);
+						if (!killPkgNames.contains(packageName)) {
+							killPkgNames.add(packageName);
+						}
 					}
 				}
 				if (installedApplications != null) {
 					for (String packageName : installedApplications) {
-						if (packageName.contains("systemui") || packageName.contains("launcher") || packageName.equals("com.sohu.inputmethod.sogou") || packageName.equals(context.getPackageName())) {
+						if (packageName.contains("systemui") 
+								|| packageName.contains("launcher") 
+								|| packageName.equals("com.sohu.inputmethod.sogou") 
+								|| packageName.equals("com.tencent.qqpinyin") 
+								|| packageName.equals("com.baidu.input") 
+								|| packageName.equals(context.getPackageName())) {
 							continue;
 						}
-						killPkgNames.add(packageName);
+						if (!killPkgNames.contains(packageName)) {
+							killPkgNames.add(packageName);
+						}
 					}
 				}
 				MyAccessibilityService.INVOKE_TYPE = MyAccessibilityService.TYPE_KILL_APP;
@@ -76,18 +90,14 @@ public class BgService extends Service {
 							killIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 							startActivity(killIntent);
 						}
-					}, 2000);
+					}, 3000);
 				}
-				int pid = Process.myPid();
-				android.os.Process.killProcess(pid);
 			}
 
 			@Override
 			public void doInBackground(Context context) {
-				// androidAppProcess =
-				// AndroidProcesses.getRunningAppProcesses();
-				// runningAppProcessInfos =
-				// AndroidProcesses.getRunningAppProcessInfo(context);
+				androidAppProcess = AndroidProcesses.getRunningAppProcesses();
+				//runningAppProcessInfos = AndroidProcesses.getRunningAppProcessInfo(context);
 				installedApplications = ApplicationUtils.getInstalledApplications(getApplicationContext());
 			}
 
@@ -98,6 +108,5 @@ public class BgService extends Service {
 	public IBinder onBind(Intent intent) {
 		return null;
 	}
-	// com.sohu.inputmethod.sogou
 
 }
