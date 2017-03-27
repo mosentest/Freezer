@@ -19,6 +19,10 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		//停止服务
+		Intent intent = new Intent(MainActivity.this, BgService.class);
+		stopService(intent);
+		
 		this.findViewById(R.id.activeButton).setOnClickListener(new View.OnClickListener() {
 			
 			@Override
